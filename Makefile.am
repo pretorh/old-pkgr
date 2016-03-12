@@ -10,3 +10,4 @@ XFAIL_TESTS += tests/spec/install_create-files.sh
 pkgr_CFLAGS = -ggdb -pedantic -Wall -Wextra
 pkgr_SOURCES = src/main.c
 pkgr_SOURCES += src/settings.c
+pkgr_SOURCES += src/utils/exec.c
