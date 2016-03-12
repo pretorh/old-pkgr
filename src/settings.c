@@ -11,8 +11,9 @@ struct Settings parse_arguments(int argc, char *argv[]) {
     struct Settings res;
     init_settings(&res);
 
-    static const char short_options[] = "P:";
+    static const char short_options[] = "I:P:";
     static struct option long_options[] = {
+        {"install", required_argument, 0, 'I'},
         {"pack", required_argument, 0, 'P'},
         {0, 0, 0, 0}
     };
@@ -20,6 +21,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
 
     while ((c = getopt_long (argc, argv, short_options, long_options, &index)) != -1) {
         switch (c) {
+            case 'I':
             case 'P':
                 res.command = c;
                 res.argument = optarg;

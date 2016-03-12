@@ -1,5 +1,6 @@
 #include "settings.h"
 #include "pkgr/package.h"
+#include "pkgr/install.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,6 +10,10 @@ int main(int argc, char *argv[]) {
     switch (settings.command) {
         case 'P':
             package(&settings);
+            break;
+
+        case 'I':
+            install(&settings);
             break;
 
         default:

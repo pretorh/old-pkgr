@@ -11,4 +11,5 @@ pkgr_CFLAGS = -ggdb -pedantic -Wall -Wextra
 pkgr_SOURCES = src/main.c
 pkgr_SOURCES += src/settings.c
 pkgr_SOURCES += src/utils/exec.c
+pkgr_SOURCES += src/pkgr/install.c
 pkgr_SOURCES += src/pkgr/package.c
