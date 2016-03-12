@@ -9,3 +9,8 @@ void package(struct Settings *settings) {
     execute("tar cpPJf %s --transform 's,%s/,,' --owner=0 --group=0 %s/"DIR_ROOT,
             archive, root, root);
 }
+
+void package_extract_files(const char *archive, const char *to) {
+    execute("tar vxPf %s --wildcards "DIR_ROOT"/* --transform 's,"DIR_ROOT",%s,' --show-stored-names",
+        archive, to);
+}
