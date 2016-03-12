@@ -2,8 +2,8 @@
 *.swp
 
 # binary, object files, distribution files
-src/*.o
-pkgr
+src/**/*.o
+/pkgr
 *.tar.*
 
 # autotools
@@ -16,9 +16,9 @@ src/config.h*
 aclocal.m4
 config.log
 config.status
-src/.deps/
-src/stamp-h1
-src/.dirstamp
+src/**/.deps/
+src/**/stamp-h1
+src/**/.dirstamp
 
 # tests
 tests/**/*.log
