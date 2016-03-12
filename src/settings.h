@@ -4,6 +4,9 @@
 #include <limits.h>
 
 struct Settings {
+    char command;
+    char *argument;
+
     char **argv;
     int argc;
     int argi;

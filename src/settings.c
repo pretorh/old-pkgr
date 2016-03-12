@@ -11,18 +11,18 @@ struct Settings parse_arguments(int argc, char *argv[]) {
     struct Settings res;
     init_settings(&res);
 
-    static const char short_options[] = "";
+    static const char short_options[] = "P:";
     static struct option long_options[] = {
+        {"pack", required_argument, 0, 'P'},
         {0, 0, 0, 0}
     };
     int c, index;
 
     while ((c = getopt_long (argc, argv, short_options, long_options, &index)) != -1) {
         switch (c) {
-            case 0:
-                // long options
-                if (long_options[index].flag != 0)
-                    break;
+            case 'P':
+                res.command = c;
+                res.argument = optarg;
                 break;
 
             case '?':

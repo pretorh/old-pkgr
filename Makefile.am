@@ -2,8 +2,9 @@ bin_PROGRAMS = pkgr
 EXTRA_DIST = $(TESTS)
 
 TESTS =
-XFAIL_TESTS =
+TESTS += tests/package/create-tarxz.sh
 TESTS += tests/spec/install_create-files.sh
+XFAIL_TESTS =
 XFAIL_TESTS += tests/spec/install_create-files.sh
 
 pkgr_CFLAGS = -ggdb -pedantic -Wall -Wextra
