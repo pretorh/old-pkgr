@@ -3,6 +3,7 @@ EXTRA_DIST = $(TESTS)
 
 TESTS =
 TESTS += tests/package/create-tarxz.sh
+TESTS += tests/package/create-with-name.sh
 TESTS += tests/spec/install_create-files.sh
 TESTS += tests/spec/install_blocked-if-file-already-owned.sh
 XFAIL_TESTS =
