@@ -42,7 +42,7 @@ function fail {
     exit 1
 }
 
-echo "TEST_ROOT_DIR=$TEST_ROOT_DIR"
+echo "TEST_ROOT_DIR = $TEST_ROOT_DIR"
 
 empty_package_dir
 mkdir -p $ROOT_DIR
