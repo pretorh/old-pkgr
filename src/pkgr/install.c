@@ -36,9 +36,9 @@ void validate_files_in_package(const char *library, const char *archive, const c
         if (library_get_owner(library, file, current_owner)) {
             fprintf(stderr, "%s is currently owned by %s\n", file, current_owner);
             already_owned++;
+        } else {
+            fprintf(fowned, "%s\n", file);
         }
-
-        fprintf(fowned, "%s\n", file);
     }
     fclose(flist);
 
