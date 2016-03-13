@@ -25,6 +25,12 @@ function assert_file_exists {
     done
 }
 
+function assert_file_not_exists {
+    for v in "$@" ; do
+        test -f $v && fail "$v file exist"
+    done
+}
+
 function fail {
     set +e
     echo "FAILED"
