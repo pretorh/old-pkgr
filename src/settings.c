@@ -20,6 +20,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         // options
         {"root-dir", required_argument, 0, 0},
         {"library-dir", required_argument, 0, 0},
+        {"name", required_argument, 0, 0},
         {0, 0, 0, 0}
     };
     int c, index;
@@ -52,10 +53,14 @@ struct Settings parse_arguments(int argc, char *argv[]) {
 
 void set_option(const char *name, const char *value, struct Settings *settings) {
     char *to_dir = 0;
+    char *to_option = 0;
+
     if (strcmp(name, "root-dir") == 0) {
         to_dir = settings->dir_root;
     } else if (strcmp(name, "library-dir") == 0) {
         to_dir = settings->dir_library;
+    } else if (strcmp(name, "name") == 0) {
+        to_option = settings->name;
     } else {
         fprintf(stderr, "unknown setting %s\n", name);
         exit(1);
@@ -63,4 +68,6 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
 
     if (to_dir)
         strcpy(to_dir, value);
+    if (to_option)
+        strcpy(to_option, value);
 }
