@@ -11,13 +11,9 @@
 #define MKDIR_MODE MODE_755
 
 void install(struct Settings *settings) {
-    const char *found = strrchr(settings->argument, '/');
-    int offset = found - settings->argument + 1;
-    int length = strlen(settings->argument) - offset;
-
     char name[50];
-    strncpy(name, settings->argument + offset, length - 7);
-    name[length - 7] = 0;
+    split_filename(settings->argument, NULL, name);
+    name[strlen(name) - 7] = 0;         // drop .tar.xz
 
     char package_dir[PATH_MAX + 1];
     sprintf(package_dir, "%s/%s", settings->dir_library, name);
