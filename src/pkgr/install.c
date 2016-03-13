@@ -2,6 +2,7 @@
 #include "library.h"
 #include "package.h"
 #include "../utils.h"
+#include <limits.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,17 +20,17 @@ struct ValidateData {
 void validate_files_in_package(const char *library, const char *archive, const char *owned);
 int validate_file_in_package(const char *file, void *data);
 
-void install(struct Settings *settings) {
+void install_package(const char *library, const char *root, const char *archive) {
     char name[50], package_dir[PATH_MAX + 1], owned[PATH_MAX + 1];
-    package_get_name(settings->argument, name);
-    library_get_package_dir(settings->dir_library, name, package_dir);
-    library_get_package_owns_file(settings->dir_library, name, owned);
+    package_get_name(archive, name);
+    library_get_package_dir(library, name, package_dir);
+    library_get_package_owns_file(library, name, owned);
 
     mkdir(package_dir, MKDIR_MODE);
 
-    validate_files_in_package(settings->dir_library, settings->argument, owned);
+    validate_files_in_package(library, archive, owned);
 
-    package_extract_files(settings->argument, settings->dir_root);
+    package_extract_files(archive, root);
 }
 
 void validate_files_in_package(const char *library, const char *archive, const char *owned) {
