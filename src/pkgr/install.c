@@ -1,5 +1,6 @@
 #include "install.h"
 #include "package.h"
+#include "../utils.h"
 #include <string.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -23,7 +24,16 @@ void install(struct Settings *settings) {
 
     char owned[PATH_MAX + 1];
     sprintf(owned, "%s/owns", package_dir);
-    package_dump_file_list(settings->argument, owned);
+    FILE *fowned = fopen(owned, "w");
+
+    FILE *flist = package_read_file_list(settings->argument);
+    char file[LINE_MAX + 1];
+    while (read_trimmed_line(flist, file)) {
+        fprintf(fowned, "%s\n", file);
+    }
+    fclose(flist);
+
+    fclose(fowned);
 
     package_extract_files(settings->argument, settings->dir_root);
 }
