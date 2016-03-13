@@ -25,3 +25,9 @@ void package_extract_files(const char *archive, const char *to) {
     execute("tar vxPf %s --wildcards "DIR_ROOT"/* --transform 's,"DIR_ROOT",%s,' --show-stored-names",
         archive, to);
 }
+
+const char *package_get_name(const char *archive, char *name) {
+    split_filename(archive, NULL, name);
+    name[strlen(name) - 7] = 0;         // drop .tar.xz
+    return name;
+}

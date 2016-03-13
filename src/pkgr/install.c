@@ -11,17 +11,13 @@
 #define MKDIR_MODE MODE_755
 
 void install(struct Settings *settings) {
-    char name[50];
-    split_filename(settings->argument, NULL, name);
-    name[strlen(name) - 7] = 0;         // drop .tar.xz
-
-    char package_dir[PATH_MAX + 1];
-    sprintf(package_dir, "%s/%s", settings->dir_library, name);
+    char name[50], package_dir[PATH_MAX + 1], owned[PATH_MAX + 1];
+    package_get_name(settings->argument, name);
+    library_get_package_dir(settings->dir_library, name, package_dir);
+    library_get_package_owns_file(settings->dir_library, name, owned);
 
     mkdir(package_dir, MKDIR_MODE);
 
-    char owned[PATH_MAX + 1];
-    sprintf(owned, "%s/owns", package_dir);
     FILE *fowned = fopen(owned, "w");
 
     FILE *flist = package_read_file_list(settings->argument);
