@@ -71,3 +71,9 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
     if (to_option)
         strcpy(to_option, value);
 }
+
+const char *take_next_argv(struct Settings *settings) {
+    if (settings->argi >= settings->argc)
+        return NULL;
+    return settings->argv[settings->argi++];
+}
