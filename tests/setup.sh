@@ -27,7 +27,7 @@ function assert_file_exists {
 
 function assert_file_not_exists {
     for v in "$@" ; do
-        test -f $v && fail "$v file exist"
+        (test -f $v && fail "$v file exist") || true
     done
 }
 
