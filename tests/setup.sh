@@ -7,9 +7,10 @@ PACKAGE_DIR=$TEST_ROOT_DIR/pack
 ROOT_DIR=$TEST_ROOT_DIR/root
 LIBRARY_DIR=$TEST_ROOT_DIR/lib
 
-mkdir -p $PACKAGE_DIR/files
-mkdir -p $ROOT_DIR
-mkdir -p $LIBRARY_DIR
+function empty_package_dir {
+    rm -rf $PACKAGE_DIR
+    mkdir -p $PACKAGE_DIR/files
+}
 
 function package_files {
     for v in "$@" ; do
@@ -36,3 +37,7 @@ function fail {
 }
 
 echo "TEST_ROOT_DIR=$TEST_ROOT_DIR"
+
+empty_package_dir
+mkdir -p $ROOT_DIR
+mkdir -p $LIBRARY_DIR
