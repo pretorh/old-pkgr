@@ -1,5 +1,4 @@
 #include "settings.h"
-#include "pkgr/package.h"
 #include "commands.h"
 #include <stdio.h>
 #include <stdlib.h>

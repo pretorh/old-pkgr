@@ -4,6 +4,7 @@
 #include "settings.h"
 
 void install(struct Settings *settings);
+void package(struct Settings *settings);
 void query(struct Settings *settings);
 
 #endif

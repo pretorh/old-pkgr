@@ -1,12 +1,10 @@
 #include "package.h"
 #include "../utils.h"
+#include <limits.h>
 
-void package(struct Settings *settings) {
-    const char *root = settings->argument;
+void package_create(const char *root, const char *name) {
     char archive[PATH_MAX + 1];
-    sprintf(archive, "%s/%s.tar.xz",
-        root,
-        settings->name[0] == 0 ? "package" : settings->name);
+    sprintf(archive, "%s/%s.tar.xz", root, name);
 
     execute("tar cpPJf %s --transform 's,%s/,,' --owner=0 --group=0 %s/"DIR_ROOT,
             archive, root, root);
