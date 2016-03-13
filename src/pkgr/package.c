@@ -12,6 +12,13 @@ void package(struct Settings *settings) {
             archive, root, root);
 }
 
+void package_dump_file_list(const char *archive, const char *to) {
+    execute("tar tPf %s --wildcards "DIR_ROOT"/* "
+            "--transform 's,"DIR_ROOT",,' "
+            "--show-stored-names | grep -v '/$' > %s",
+            archive, to);
+}
+
 void package_extract_files(const char *archive, const char *to) {
     execute("tar vxPf %s --wildcards "DIR_ROOT"/* --transform 's,"DIR_ROOT",%s,' --show-stored-names",
         archive, to);

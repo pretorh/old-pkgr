@@ -21,5 +21,9 @@ void install(struct Settings *settings) {
 
     mkdir(package_dir, MKDIR_MODE);
 
+    char owned[PATH_MAX + 1];
+    sprintf(owned, "%s/owns", package_dir);
+    package_dump_file_list(settings->argument, owned);
+
     package_extract_files(settings->argument, settings->dir_root);
 }
