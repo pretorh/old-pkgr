@@ -1,6 +1,7 @@
 #include "settings.h"
 #include "pkgr/package.h"
 #include "pkgr/install.h"
+#include "commands.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,6 +15,10 @@ int main(int argc, char *argv[]) {
 
         case 'I':
             install(&settings);
+            break;
+
+        case 'Q':
+            query(&settings);
             break;
 
         default:

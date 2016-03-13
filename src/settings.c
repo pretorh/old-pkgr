@@ -12,14 +12,16 @@ struct Settings parse_arguments(int argc, char *argv[]) {
     struct Settings res;
     init_settings(&res);
 
-    static const char short_options[] = "I:P:";
+    static const char short_options[] = "I:P:Q:";
     static struct option long_options[] = {
         // commands
         {"install", required_argument, 0, 'I'},
         {"pack", required_argument, 0, 'P'},
+        {"query", required_argument, 0, 'Q'},
         // options
         {"root-dir", required_argument, 0, 0},
         {"library-dir", required_argument, 0, 0},
+        {"name", required_argument, 0, 0},
         {0, 0, 0, 0}
     };
     int c, index;
@@ -28,6 +30,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         switch (c) {
             case 'I':
             case 'P':
+            case 'Q':
                 res.command = c;
                 res.argument = optarg;
                 break;
@@ -52,10 +55,14 @@ struct Settings parse_arguments(int argc, char *argv[]) {
 
 void set_option(const char *name, const char *value, struct Settings *settings) {
     char *to_dir = 0;
+    char *to_option = 0;
+
     if (strcmp(name, "root-dir") == 0) {
         to_dir = settings->dir_root;
     } else if (strcmp(name, "library-dir") == 0) {
         to_dir = settings->dir_library;
+    } else if (strcmp(name, "name") == 0) {
+        to_option = settings->name;
     } else {
         fprintf(stderr, "unknown setting %s\n", name);
         exit(1);
@@ -63,4 +70,12 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
 
     if (to_dir)
         strcpy(to_dir, value);
+    if (to_option)
+        strcpy(to_option, value);
+}
+
+const char *take_next_argv(struct Settings *settings) {
+    if (settings->argi >= settings->argc)
+        return NULL;
+    return settings->argv[settings->argi++];
 }

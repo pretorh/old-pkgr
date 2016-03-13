@@ -10,6 +10,8 @@ struct Settings {
     char dir_root[PATH_MAX + 1];
     char dir_library[PATH_MAX + 1];
 
+    char name[50];
+
     char **argv;
     int argc;
     int argi;
@@ -18,5 +20,6 @@ struct Settings {
 void init_settings(struct Settings *settings);
 struct Settings parse_arguments(int argc, char *argv[]);
 void set_option(const char *name, const char *value, struct Settings *settings);
+const char *take_next_argv(struct Settings *settings);
 
 #endif
