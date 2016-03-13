@@ -25,15 +25,8 @@ void query(struct Settings *settings) {
 }
 
 void query_owner(const char *library, const char *file) {
-    char command[1000];
-    sprintf(command, "basename $(dirname `grep -l %s %s/**/owns`)", file, library);
-    printf("$>%s\n", command);
-
-    FILE *f = popen(command, "r");
-    if (f == NULL) {
-        perror("Error opening pipe");
-        exit(EXIT_FAILURE);
-    }
+    FILE *f;
+    start_pipe(f, "basename $(dirname `grep -l %s %s/**/owns`)", file, library);
 
     char line[LINE_MAX + 1];
     if (fgets(line, LINE_MAX, f)) {
