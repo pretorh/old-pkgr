@@ -12,11 +12,12 @@ struct Settings parse_arguments(int argc, char *argv[]) {
     struct Settings res;
     init_settings(&res);
 
-    static const char short_options[] = "I:P:";
+    static const char short_options[] = "I:P:Q:";
     static struct option long_options[] = {
         // commands
         {"install", required_argument, 0, 'I'},
         {"pack", required_argument, 0, 'P'},
+        {"query", required_argument, 0, 'Q'},
         // options
         {"root-dir", required_argument, 0, 0},
         {"library-dir", required_argument, 0, 0},
@@ -29,6 +30,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         switch (c) {
             case 'I':
             case 'P':
+            case 'Q':
                 res.command = c;
                 res.argument = optarg;
                 break;
