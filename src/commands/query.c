@@ -1,5 +1,6 @@
 #include "../commands.h"
 #include "../utils.h"
+#include "pkgr/library.h"
 #include <stdlib.h>
 
 void query_owner(const char *library, const char *file);
@@ -19,13 +20,8 @@ void query(struct Settings *settings) {
 }
 
 void query_owner(const char *library, const char *file) {
-    FILE *f;
-    start_pipe(f, "basename $(dirname `grep -l %s %s/**/owns`)", file, library);
-
     char line[LINE_MAX + 1];
-    if (read_trimmed_line(f, line)) {
+    if (library_get_owner(library, file, line)) {
         printf("%s: %s\n", line, file);
     }
-
-    fclose(f);
 }
