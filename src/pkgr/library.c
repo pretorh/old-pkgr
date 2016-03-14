@@ -6,9 +6,16 @@
 
 const char *library_get_owner(const char *library, const char *file, char *owner) {
     FILE *f;
-    start_pipe(f, "basename $(dirname `grep -l ^%s$ %s/**/"FILE_OWNS"`)", file, library);
+    start_pipe(f, "grep -l ^%s$ %s/**/"FILE_OWNS, file, library);
 
-    const char *result = read_trimmed_line(f, owner);
+    char line[LINE_MAX + 1];
+    const char *result = NULL;
+    if ((result = read_trimmed_line(f, line))) {
+        // the base of the dir of the file (file -> dir -> parent dir)
+        char dir[PATH_MAX + 1];
+        split_filename(line, dir, NULL);
+        split_filename(dir, NULL, owner);
+    }
 
     fclose(f);
     return result;
