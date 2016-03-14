@@ -8,7 +8,9 @@ TESTS += tests/install/added-to-library.sh
 TESTS += tests/install/files-owned.sh
 TESTS += tests/spec/install_create-files.sh
 TESTS += tests/spec/install_blocked-if-file-already-owned.sh
+TESTS += tests/spec/install_replace-file-ownership.sh
 XFAIL_TESTS =
+XFAIL_TESTS += tests/spec/install_replace-file-ownership.sh
 
 pkgr_CFLAGS = -ggdb -pedantic -Wall -Wextra
 pkgr_SOURCES = src/main.c
