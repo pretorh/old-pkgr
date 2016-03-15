@@ -56,6 +56,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
 void set_option(const char *name, const char *value, struct Settings *settings) {
     char *to_dir = 0;
     char *to_option = 0;
+    unsigned int max_length = 0;
 
     if (strcmp(name, "root-dir") == 0) {
         to_dir = settings->dir_root;
@@ -63,6 +64,7 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
         to_dir = settings->dir_library;
     } else if (strcmp(name, "name") == 0) {
         to_option = settings->name;
+        max_length = sizeof(settings->name);
     } else {
         fprintf(stderr, "unknown setting %s\n", name);
         exit(1);
@@ -70,8 +72,13 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
 
     if (to_dir)
         strcpy(to_dir, value);
-    if (to_option)
+    if (to_option) {
+        if (strlen(value) >= max_length) {
+            fprintf(stderr, "value for %s is to long (max_length = %d)\n", name, max_length);
+            exit(1);
+        }
         strcpy(to_option, value);
+    }
 }
 
 const char *take_next_argv(struct Settings *settings) {
