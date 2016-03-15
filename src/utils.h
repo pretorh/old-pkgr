@@ -21,6 +21,11 @@
 #define LOG_COMMAND(command) \
     printf("$> %s\n", command);
 
+#define EXIT_WITH_ERROR(f, ...) { \
+        fprintf(stderr, f"\n", __VA_ARGS__); \
+        exit(EXIT_FAILURE); \
+    }
+
 typedef int LineCallback(const char *line, void *data);
 
 // exec

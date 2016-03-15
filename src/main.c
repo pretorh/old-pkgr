@@ -1,5 +1,6 @@
 #include "settings.h"
 #include "commands.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,8 +21,10 @@ int main(int argc, char *argv[]) {
             break;
 
         default:
-            fprintf(stderr, "No command given\n");
-            exit(EXIT_FAILURE);
+            EXIT_WITH_ERROR("No command given\nValid commands: %s",
+                "P: package\n"
+                "I: install\n"
+                "Q: query\n");
     }
 
     return 0;

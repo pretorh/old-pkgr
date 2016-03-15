@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "utils.h"
 #include <string.h>
 #include <getopt.h>
 #include <stdlib.h>
@@ -66,17 +67,14 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
         to_option = settings->name;
         max_length = sizeof(settings->name);
     } else {
-        fprintf(stderr, "unknown setting %s\n", name);
-        exit(1);
+        EXIT_WITH_ERROR("unknown setting %s", name);
     }
 
     if (to_dir)
         strcpy(to_dir, value);
     if (to_option) {
-        if (strlen(value) >= max_length) {
-            fprintf(stderr, "value for %s is to long (max_length = %d)\n", name, max_length);
-            exit(1);
-        }
+        if (strlen(value) >= max_length)
+            EXIT_WITH_ERROR("value for %s is to long (max_length = %d)", name, max_length);
         strcpy(to_option, value);
     }
 }

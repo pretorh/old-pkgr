@@ -43,10 +43,8 @@ void validate_files_in_package(const char *library, const char *archive, const c
 
     fclose(fowned);
 
-    if (validate.already_owned) {
-        fprintf(stderr, "%d files are already owned by other packages\n", validate.already_owned);
-        exit(EXIT_FAILURE);
-    }
+    if (validate.already_owned)
+        EXIT_WITH_ERROR("%d files are already owned by other packages", validate.already_owned);
 }
 
 int validate_file_in_package(const char *file, void *data) {

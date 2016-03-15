@@ -16,13 +16,10 @@ void query(struct Settings *settings) {
             not_found += query_owner(settings->dir_library, file);
         }
 
-        if (not_found) {
-            fprintf(stderr, "%d files are not owned\n", not_found);
-            exit(EXIT_FAILURE);
-        }
+        if (not_found)
+            EXIT_WITH_ERROR("%d files are not owned", not_found);
     } else {
-        fprintf(stderr, "Unknown query option: %s\n", settings->argument);
-        exit(EXIT_FAILURE);
+        EXIT_WITH_ERROR("Unknown query option: %s", settings->argument);
     }
 }
 
