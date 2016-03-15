@@ -18,6 +18,9 @@
     if (strlen(s) && s[strlen(s) - 1] == '\n') \
         s[strlen(s) - 1] = 0;
 
+#define LOG_COMMAND(command) \
+    printf("$> %s\n", command);
+
 typedef int LineCallback(const char *line, void *data);
 
 // exec
