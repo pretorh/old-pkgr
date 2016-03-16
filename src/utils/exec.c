@@ -1,7 +1,6 @@
 #include "../utils.h"
 #include <stdlib.h>
 
-
 void execute_command(const char *command) {
     LOG_COMMAND(command);
     int status = system(command);
