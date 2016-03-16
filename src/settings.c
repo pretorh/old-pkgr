@@ -18,6 +18,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         // commands
         {"install", required_argument, 0, 'I'},
         {"pack", required_argument, 0, 'P'},
+        {"library", required_argument, 0, 'L'},
         {"query", required_argument, 0, 'Q'},
         // options
         {"root-dir", required_argument, 0, 0},
@@ -31,6 +32,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         switch (c) {
             case 'I':
             case 'P':
+            case 'L':
             case 'Q':
                 res.command = c;
                 res.argument = optarg;

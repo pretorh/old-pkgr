@@ -16,6 +16,10 @@ int main(int argc, char *argv[]) {
             install(&settings);
             break;
 
+        case 'L':
+            library(&settings);
+            break;
+
         case 'Q':
             query(&settings);
             break;
@@ -24,6 +28,7 @@ int main(int argc, char *argv[]) {
             EXIT_WITH_ERROR("No command given. Valid commands: %s",
                 "\nP: package"
                 "\nI: install"
+                "\nL: library"
                 "\nQ: query");
     }
 

@@ -17,6 +17,7 @@ pkgr_SOURCES = src/main.c
 pkgr_SOURCES += src/settings.c
 pkgr_SOURCES += src/commands/install.c
 pkgr_SOURCES += src/commands/package.c
+pkgr_SOURCES += src/commands/library.c
 pkgr_SOURCES += src/commands/query.c
 pkgr_SOURCES += src/utils/exec.c
 pkgr_SOURCES += src/utils/functions.c
