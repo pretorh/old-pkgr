@@ -86,3 +86,9 @@ const char *take_next_argv(struct Settings *settings) {
         return NULL;
     return settings->argv[settings->argi++];
 }
+
+const char *get_option(const char *value, const char *error_message) {
+    if (*value)
+        return value;
+    EXIT_WITH_ERROR("Value not set: %s", error_message);
+}

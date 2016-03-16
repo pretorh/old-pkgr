@@ -21,5 +21,6 @@ void init_settings(struct Settings *settings);
 struct Settings parse_arguments(int argc, char *argv[]);
 void set_option(const char *name, const char *value, struct Settings *settings);
 const char *take_next_argv(struct Settings *settings);
+const char *get_option(const char *value, const char *error_message);
 
 #endif
