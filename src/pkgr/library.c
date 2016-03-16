@@ -32,3 +32,8 @@ const char *library_get_package_owns_file(const char *library, const char *packa
     sprintf(package_file, "%s/"FILE_OWNS, package_dir);
     return package_file;
 }
+
+void library_remove_ownership(const char *library_dir, const char *package_name, const char *package_file) {
+    execute("sed --in-place '\\:^%s$:d' %s/%s/"FILE_OWNS,
+        package_file, library_dir, package_name);
+}
