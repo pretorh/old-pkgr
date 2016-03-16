@@ -1,6 +1,7 @@
 #include "library.h"
 #include "../utils.h"
 #include <limits.h>
+#include <stdlib.h>
 
 #define FILE_OWNS "owns"
 
@@ -34,6 +35,12 @@ const char *library_get_package_owns_file(const char *library, const char *packa
 }
 
 void library_remove_ownership(const char *library_dir, const char *package_name, const char *package_file) {
+    char current_owner[50];
+    if (library_get_owner(library_dir, package_file, current_owner) == 0)
+        EXIT_WITH_ERROR("File %s is not owned by any package", package_file);
+    if (strcmp(package_name, current_owner))
+        EXIT_WITH_ERROR("File %s is not owned by %s (but by %s)", package_file, package_name, current_owner);
+
     execute("sed --in-place '\\:^%s$:d' %s/%s/"FILE_OWNS,
         package_file, library_dir, package_name);
 }
