@@ -17,6 +17,10 @@ FILE *execute_for_reading(const char *command) {
     return f;
 }
 
+void close_pipe(FILE *f) {
+    pclose(f);
+}
+
 int get_exit_code(const char *command, int status) {
     if (WIFEXITED(status)) {
         return WEXITSTATUS(status);

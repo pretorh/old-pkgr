@@ -38,6 +38,7 @@ typedef int LineCallback(const char *line, void *data);
 // exec
 void execute_command(const char *command);
 FILE *execute_for_reading(const char *command);
+void close_pipe(FILE *f);
 int get_exit_code(const char *command, int status);
 void assert_success_exit(const char *command, int status);
 
