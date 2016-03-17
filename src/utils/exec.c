@@ -18,7 +18,7 @@ FILE *execute_for_reading(const char *command) {
     return f;
 }
 
-void close_pipe(FILE *f) {
+void close_pipe(FILE *f, int allow_non_zero_exit) {
     int status = pclose(f);
     if (status == -1)
         EXIT_SUB_PROCESS_ERROR("(pipe command)", strerror(errno), errno);

@@ -18,7 +18,7 @@ const char *library_get_owner(const char *library, const char *file, char *owner
         split_filename(dir, NULL, owner);
     }
 
-    close_pipe(f);
+    close_pipe(f, 1);
     return result;
 }
 

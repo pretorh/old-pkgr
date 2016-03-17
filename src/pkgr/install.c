@@ -39,7 +39,7 @@ void validate_files_in_package(const char *library, const char *archive, const c
     struct ValidateData validate = { library, fowned, 0 };
     FILE *flist = package_read_file_list(archive);
     for_each_line(flist, &validate, &validate_file_in_package);
-    close_pipe(flist);
+    close_pipe(flist, 0);
 
     fclose(fowned);
 
