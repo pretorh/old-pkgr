@@ -1,5 +1,6 @@
 #include "../utils.h"
 #include <stdlib.h>
+#include <errno.h>
 
 void execute_command(const char *command) {
     LOG_COMMAND(command);
@@ -18,7 +19,9 @@ FILE *execute_for_reading(const char *command) {
 }
 
 void close_pipe(FILE *f) {
-    pclose(f);
+    int status = pclose(f);
+    if (status == -1)
+        EXIT_SUB_PROCESS_ERROR("(pipe command)", strerror(errno), errno);
 }
 
 int get_exit_code(const char *command, int status) {
