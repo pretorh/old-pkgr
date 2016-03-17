@@ -18,10 +18,17 @@ FILE *execute_for_reading(const char *command) {
     return f;
 }
 
-void close_pipe(FILE *f, int allow_non_zero_exit) {
+int close_pipe(FILE *f, int allow_non_zero_exit) {
     int status = pclose(f);
     if (status == -1)
         EXIT_SUB_PROCESS_ERROR("(pipe command)", strerror(errno), errno);
+
+    if (allow_non_zero_exit) {
+        return get_exit_code("(pipe command)", status);
+    } else {
+        assert_success_exit("(pipe command)", status);
+        return 0;
+    }
 }
 
 int get_exit_code(const char *command, int status) {
