@@ -24,6 +24,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         {"root-dir", required_argument, 0, 0},
         {"library-dir", required_argument, 0, 0},
         {"name", required_argument, 0, 0},
+        {"replace-files", required_argument, 0, 0},
         {0, 0, 0, 0}
     };
     int c, index;
@@ -68,6 +69,9 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
     } else if (strcmp(name, "name") == 0) {
         to_option = settings->name;
         max_length = sizeof(settings->name);
+    } else if (strcmp(name, "replace-files") == 0) {
+        to_option = settings->replace_files_in_package;
+        max_length = sizeof(settings->replace_files_in_package);
     } else {
         EXIT_WITH_ERROR("unknown setting %s", name);
     }

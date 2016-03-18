@@ -11,6 +11,7 @@ struct Settings {
     char dir_library[PATH_MAX + 1];
 
     char name[50];
+    char replace_files_in_package[50];
 
     char **argv;
     int argc;
