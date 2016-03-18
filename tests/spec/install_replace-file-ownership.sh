@@ -23,6 +23,12 @@ rm $ROOT_DIR/usr/bin/hello
 ./pkgr --query owner --library-dir $LIBRARY_DIR /share/doc/hello | \
     grep -q "^package-new: /share/doc/hello$" || fail "file not owned / not owned by package-new"
 
+# only package-new owns the overwritten file (remove from new. then try and remove from old)
+./pkgr --library remove-ownership --name package-new --library-dir $LIBRARY_DIR /usr/bin/hello
+if ./pkgr --library remove-ownership --name package-old --library-dir $LIBRARY_DIR /usr/bin/hello 2>/dev/null ; then
+    fail "expected remove to fail since it should already be removed"
+fi
+
 # and the old package still owns its remaining files
 ./pkgr --query owner --library-dir $LIBRARY_DIR /usr/lib/libhello.so | \
     grep -q "^package-old: /usr/lib/libhello.so$" || fail "file not owned / not owned by package-old"
