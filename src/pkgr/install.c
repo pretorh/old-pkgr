@@ -44,7 +44,7 @@ void validate_files_in_package(const char *library, const char *archive, const c
     fclose(fowned);
 
     if (validate.already_owned)
-        EXIT_WITH_ERROR("%d files are already owned by other packages", validate.already_owned);
+        EXIT_WITH_ERROR("Won't to install: %d files are already owned by other packages", validate.already_owned);
 }
 
 int validate_file_in_package(const char *file, void *data) {
@@ -52,7 +52,7 @@ int validate_file_in_package(const char *file, void *data) {
     char current_owner[1000];
 
     if (library_get_owner(validate->library, file, current_owner)) {
-        fprintf(stderr, "%s is currently owned by %s\n", file, current_owner);
+        fprintf(stderr, "Error: %s is currently owned by %s\n", file, current_owner);
         validate->already_owned++;
     } else {
         fprintf(validate->fowned, "%s\n", file);
