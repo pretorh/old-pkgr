@@ -15,12 +15,13 @@ struct ValidateData {
     const char *library;
     FILE *fowned;
     int already_owned;
+    const char *replace_package;
 };
 
-void validate_files_in_package(const char *library, const char *archive, const char *owned);
+void validate_files_in_package(const char *library, const char *archive, const char *owned, const char *replace_package);
 int validate_file_in_package(const char *file, void *data);
 
-void install_package(const char *library, const char *root, const char *archive) {
+void install_package(const char *library, const char *root, const char *archive, const char *replace_package) {
     char name[50], package_dir[PATH_MAX + 1], owned[PATH_MAX + 1];
     package_get_name(archive, name);
     library_get_package_dir(library, name, package_dir);
@@ -28,15 +29,15 @@ void install_package(const char *library, const char *root, const char *archive)
 
     mkdir(package_dir, MKDIR_MODE);
 
-    validate_files_in_package(library, archive, owned);
+    validate_files_in_package(library, archive, owned, replace_package);
 
     package_extract_files(archive, root);
 }
 
-void validate_files_in_package(const char *library, const char *archive, const char *owned) {
+void validate_files_in_package(const char *library, const char *archive, const char *owned, const char *replace_package) {
     FILE *fowned = fopen(owned, "w");
 
-    struct ValidateData validate = { library, fowned, 0 };
+    struct ValidateData validate = { library, fowned, 0, replace_package };
     FILE *flist = package_read_file_list(archive);
     for_each_line(flist, &validate, &validate_file_in_package);
     close_pipe(flist, 0);
