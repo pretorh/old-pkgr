@@ -18,11 +18,29 @@
     if (strlen(s) && s[strlen(s) - 1] == '\n') \
         s[strlen(s) - 1] = 0;
 
+#define LOG_COMMAND(command) \
+    printf("$> %s\n", command);
+
+#define EXIT_WITH_ERROR(f, ...) { \
+        fprintf(stderr, f"\n", __VA_ARGS__); \
+        exit(EXIT_FAILURE); \
+    }
+#define EXIT_SUB_PROCESS_ERROR(command, issue, code) {\
+        fprintf(stderr, "Error: Sub process failed\n" \
+        "\tcommand: %s\n" \
+        "\t%s (%d)\n", \
+        command, issue, code); \
+        exit(EXIT_FAILURE); \
+    }
+
 typedef int LineCallback(const char *line, void *data);
 
 // exec
 void execute_command(const char *command);
 FILE *execute_for_reading(const char *command);
+int close_pipe(FILE *f, int allow_non_zero_exit);
+int get_exit_code(const char *command, int status);
+void assert_success_exit(const char *command, int status);
 
 // io
 const char *read_trimmed_line(FILE *f, char *into);

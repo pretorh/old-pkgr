@@ -39,14 +39,12 @@ void validate_files_in_package(const char *library, const char *archive, const c
     struct ValidateData validate = { library, fowned, 0 };
     FILE *flist = package_read_file_list(archive);
     for_each_line(flist, &validate, &validate_file_in_package);
-    fclose(flist);
+    close_pipe(flist, 0);
 
     fclose(fowned);
 
-    if (validate.already_owned) {
-        fprintf(stderr, "%d files are already owned by other packages\n", validate.already_owned);
-        exit(EXIT_FAILURE);
-    }
+    if (validate.already_owned)
+        EXIT_WITH_ERROR("%d files are already owned by other packages", validate.already_owned);
 }
 
 int validate_file_in_package(const char *file, void *data) {

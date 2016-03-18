@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "utils.h"
 #include <string.h>
 #include <getopt.h>
 #include <stdlib.h>
@@ -17,6 +18,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         // commands
         {"install", required_argument, 0, 'I'},
         {"pack", required_argument, 0, 'P'},
+        {"library", required_argument, 0, 'L'},
         {"query", required_argument, 0, 'Q'},
         // options
         {"root-dir", required_argument, 0, 0},
@@ -30,6 +32,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
         switch (c) {
             case 'I':
             case 'P':
+            case 'L':
             case 'Q':
                 res.command = c;
                 res.argument = optarg;
@@ -56,6 +59,7 @@ struct Settings parse_arguments(int argc, char *argv[]) {
 void set_option(const char *name, const char *value, struct Settings *settings) {
     char *to_dir = 0;
     char *to_option = 0;
+    unsigned int max_length = 0;
 
     if (strcmp(name, "root-dir") == 0) {
         to_dir = settings->dir_root;
@@ -63,19 +67,28 @@ void set_option(const char *name, const char *value, struct Settings *settings) 
         to_dir = settings->dir_library;
     } else if (strcmp(name, "name") == 0) {
         to_option = settings->name;
+        max_length = sizeof(settings->name);
     } else {
-        fprintf(stderr, "unknown setting %s\n", name);
-        exit(1);
+        EXIT_WITH_ERROR("unknown setting %s", name);
     }
 
     if (to_dir)
         strcpy(to_dir, value);
-    if (to_option)
+    if (to_option) {
+        if (strlen(value) >= max_length)
+            EXIT_WITH_ERROR("value for %s is to long (max_length = %d)", name, max_length);
         strcpy(to_option, value);
+    }
 }
 
 const char *take_next_argv(struct Settings *settings) {
     if (settings->argi >= settings->argc)
         return NULL;
     return settings->argv[settings->argi++];
+}
+
+const char *get_option(const char *value, const char *error_message) {
+    if (*value)
+        return value;
+    EXIT_WITH_ERROR("Value not set: %s", error_message);
 }
