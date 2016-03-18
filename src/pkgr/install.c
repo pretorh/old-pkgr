@@ -53,8 +53,12 @@ int validate_file_in_package(const char *file, void *data) {
     char current_owner[1000];
 
     if (library_get_owner(validate->library, file, current_owner)) {
-        fprintf(stderr, "Error: %s is currently owned by %s\n", file, current_owner);
-        validate->already_owned++;
+        if (strcmp(validate->replace_package, current_owner) == 0) {
+            fprintf(stderr, "Warning: replacing %s from %s\n", file, current_owner);
+        } else {
+            fprintf(stderr, "Error: %s is currently owned by %s\n", file, current_owner);
+            validate->already_owned++;
+        }
     } else {
         fprintf(validate->fowned, "%s\n", file);
     }
