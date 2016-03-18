@@ -14,8 +14,9 @@
 struct ValidateData {
     const char *library;
     FILE *fowned;
-    int already_owned;
     const char *replace_package;
+    int already_owned;
+    int files_to_replace;
 };
 
 void validate_files_in_package(const char *library, const char *archive, const char *owned, const char *replace_package);
@@ -37,7 +38,7 @@ void install_package(const char *library, const char *root, const char *archive,
 void validate_files_in_package(const char *library, const char *archive, const char *owned, const char *replace_package) {
     FILE *fowned = fopen(owned, "w");
 
-    struct ValidateData validate = { library, fowned, 0, replace_package };
+    struct ValidateData validate = { library, fowned, replace_package, 0, 0 };
     FILE *flist = package_read_file_list(archive);
     for_each_line(flist, &validate, &validate_file_in_package);
     close_pipe(flist, 0);
@@ -46,6 +47,8 @@ void validate_files_in_package(const char *library, const char *archive, const c
 
     if (validate.already_owned)
         EXIT_WITH_ERROR("Won't to install: %d files are already owned by other packages", validate.already_owned);
+    if (validate.files_to_replace)
+        fprintf(stderr, "Warning: replacing %d files from %s\n", validate.files_to_replace, replace_package);
 }
 
 int validate_file_in_package(const char *file, void *data) {
@@ -55,6 +58,7 @@ int validate_file_in_package(const char *file, void *data) {
     if (library_get_owner(validate->library, file, current_owner)) {
         if (strcmp(validate->replace_package, current_owner) == 0) {
             fprintf(stderr, "Warning: replacing %s from %s\n", file, current_owner);
+            validate->files_to_replace++;
         } else {
             fprintf(stderr, "Error: %s is currently owned by %s\n", file, current_owner);
             validate->already_owned++;
