@@ -59,6 +59,7 @@ int validate_file_in_package(const char *file, void *data) {
         if (strcmp(validate->replace_package, current_owner) == 0) {
             fprintf(stderr, "Warning: replacing %s from %s\n", file, current_owner);
             validate->files_to_replace++;
+            fprintf(validate->fowned, "%s\n", file);
         } else {
             fprintf(stderr, "Error: %s is currently owned by %s\n", file, current_owner);
             validate->already_owned++;

@@ -28,10 +28,10 @@ rm $ROOT_DIR/usr/bin/hello
     grep -q "^package-old: /usr/lib/libhello.so$" || fail "file not owned / not owned by package-old"
 
 # and the new files are created (doc)
-assert_file_not_exists $ROOT_DIR/share/doc/hello
+assert_file_exists $ROOT_DIR/share/doc/hello
 
 # and the old files are replaced (they were manually removed before install)
-assert_file_not_exists $ROOT_DIR/usr/bin/hello
+assert_file_exists $ROOT_DIR/usr/bin/hello
 
 # and the old files are still present
-assert_file_not_exists $ROOT_DIR/usr/lib/libhello.so $ROOT_DIR/share/man/hello
+assert_file_exists $ROOT_DIR/usr/lib/libhello.so $ROOT_DIR/share/man/hello
