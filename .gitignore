@@ -5,6 +5,7 @@
 src/**/*.o
 /pkgr
 *.tar.*
+pkgr-*/
 
 # autotools
 autom4te.cache/
