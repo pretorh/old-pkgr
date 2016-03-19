@@ -2,12 +2,22 @@
 #include "../utils.h"
 #include <limits.h>
 
+#define DIR_SCRIPTS "pkgr/scripts"
+#define SCRIPTS_INSTALL_PRE DIR_SCRIPTS"/pre-install.sh"
+#define SCRIPTS_INSTALL_POST DIR_SCRIPTS"/post-install.sh"
+
 void package_create(const char *root, const char *name) {
     char archive[PATH_MAX + 1];
     sprintf(archive, "%s/%s.tar.xz", root, name);
 
-    execute("tar cpPJf %s --transform 's,%s/,,' --owner=0 --group=0 %s/"DIR_ROOT,
-            archive, root, root);
+    execute("touch %s/"SCRIPTS_INSTALL_PRE, root);
+    execute("touch %s/"SCRIPTS_INSTALL_POST, root);
+
+    execute("tar cpPJf %s --transform 's,%s/,,' --owner=0 --group=0"
+            " %s/"DIR_ROOT
+            " %s/"SCRIPTS_INSTALL_PRE
+            " %s/"SCRIPTS_INSTALL_POST
+            , archive, root, root, root, root);
 }
 
 FILE *package_read_file_list(const char *archive) {

@@ -4,6 +4,7 @@ EXTRA_DIST = $(TESTS)
 TESTS =
 TESTS += tests/package/create-tarxz.sh
 TESTS += tests/package/create-with-name.sh
+TESTS += tests/package/create-with-scripts.sh
 TESTS += tests/install/added-to-library.sh
 TESTS += tests/install/files-owned.sh
 TESTS += tests/library/remove-ownership.sh
