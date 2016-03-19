@@ -21,13 +21,22 @@ XFAIL_TESTS =
 pkgr_CFLAGS = -ggdb -pedantic -Wall -Wextra
 pkgr_SOURCES = src/main.c
 pkgr_SOURCES += src/settings.c
+pkgr_SOURCES += src/settings.h
+
+pkgr_SOURCES += src/commands.h
 pkgr_SOURCES += src/commands/install.c
 pkgr_SOURCES += src/commands/package.c
 pkgr_SOURCES += src/commands/library.c
 pkgr_SOURCES += src/commands/query.c
+
+pkgr_SOURCES += src/utils.h
 pkgr_SOURCES += src/utils/exec.c
 pkgr_SOURCES += src/utils/functions.c
 pkgr_SOURCES += src/utils/io.c
+
+pkgr_SOURCES += src/pkgr/install.h
 pkgr_SOURCES += src/pkgr/install.c
+pkgr_SOURCES += src/pkgr/library.h
 pkgr_SOURCES += src/pkgr/library.c
+pkgr_SOURCES += src/pkgr/package.h
 pkgr_SOURCES += src/pkgr/package.c
