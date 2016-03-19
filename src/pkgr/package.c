@@ -40,10 +40,12 @@ const char *package_get_name(const char *archive, char *name) {
     return name;
 }
 
-void package_run_scripts_pre_install(const char *archive) {
+void package_run_scripts_pre_install(const char *archive, const char *root) {
+    set_environment_variable("R", root);
     execute("tar -xf %s -O " SCRIPTS_INSTALL_PRE " | sh", archive);
 }
 
-void package_run_scripts_post_install(const char *archive) {
+void package_run_scripts_post_install(const char *archive, const char *root) {
+    set_environment_variable("R", root);
     execute("tar -xf %s -O " SCRIPTS_INSTALL_POST " | sh", archive);
 }
