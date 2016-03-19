@@ -39,3 +39,11 @@ const char *package_get_name(const char *archive, char *name) {
     name[strlen(name) - 7] = 0;         // drop .tar.xz
     return name;
 }
+
+void package_run_scripts_pre_install(const char *archive) {
+    execute("tar -xf %s -O " SCRIPTS_INSTALL_PRE " | sh", archive);
+}
+
+void package_run_scripts_post_install(const char *archive) {
+    execute("tar -xf %s -O " SCRIPTS_INSTALL_POST " | sh", archive);
+}

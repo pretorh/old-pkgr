@@ -32,7 +32,9 @@ void install_package(const char *library, const char *root, const char *archive,
 
     validate_files_in_package(library, archive, owned, replace_package);
 
+    package_run_scripts_pre_install(archive);
     package_extract_files(archive, root);
+    package_run_scripts_post_install(archive);
 }
 
 void validate_files_in_package(const char *library, const char *archive, const char *owned, const char *replace_package) {

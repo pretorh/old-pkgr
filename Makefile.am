@@ -7,6 +7,7 @@ TESTS += tests/package/create-with-name.sh
 TESTS += tests/package/create-with-scripts.sh
 TESTS += tests/install/added-to-library.sh
 TESTS += tests/install/files-owned.sh
+TESTS += tests/install/run-scripts.sh
 TESTS += tests/library/remove-ownership.sh
 TESTS += tests/library/remove-ownership-fail-if-not-owned.sh
 TESTS += tests/query/owner-fails-if-not-found.sh
