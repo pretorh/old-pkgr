@@ -46,3 +46,10 @@ void assert_success_exit(const char *command, int status) {
     if (code)
         EXIT_SUB_PROCESS_ERROR(command, "child exited", code);
 }
+
+void set_environment_variable(const char *name, const char *value) {
+    if (setenv(name, value, 1)) {
+        perror("failed to set environment variable");
+        EXIT_WITH_ERROR("failed to export %s=%s", name, value);
+    }
+}

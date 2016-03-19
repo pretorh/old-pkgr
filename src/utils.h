@@ -41,6 +41,7 @@ FILE *execute_for_reading(const char *command);
 int close_pipe(FILE *f, int allow_non_zero_exit);
 int get_exit_code(const char *command, int status);
 void assert_success_exit(const char *command, int status);
+void set_environment_variable(const char *name, const char *value);
 
 // io
 const char *read_trimmed_line(FILE *f, char *into);
