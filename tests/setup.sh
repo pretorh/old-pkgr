@@ -10,6 +10,7 @@ LIBRARY_DIR=$TEST_ROOT_DIR/lib
 function empty_package_dir {
     rm -rf $PACKAGE_DIR
     mkdir -p $PACKAGE_DIR/files
+    mkdir -p $PACKAGE_DIR/pkgr/scripts
 }
 
 function package_files {
