@@ -1,6 +1,6 @@
 #include "../commands.h"
 #include "../utils.h"
-#include "pkgr/library.h"
+#include "../pkgr/library.h"
 #include <stdlib.h>
 
 int query_owner(const char *library, const char *file);
