@@ -48,6 +48,6 @@ const char *read_trimmed_line(FILE *f, char *into);
 void for_each_line(FILE *f, void *data, LineCallback *callback);
 
 // functions
-int split_filename(const char *from, char *dir, char *file);
+void split_filename(const char *from, char *dir, char *file);
 
 #endif
